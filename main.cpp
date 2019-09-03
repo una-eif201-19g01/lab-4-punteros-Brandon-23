@@ -1,4 +1,7 @@
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "Empleado.h"
 
 int main() {
@@ -21,15 +24,9 @@ int main() {
 	empleado[3].setAnno(1);
 	empleado[3].setSalario(800000);
 
-	std::string reporte;
-
-	reporte = empleado[0].obtenerReporteEmpleado(reporte);
-	reporte = empleado[1].obtenerReporteEmpleado(reporte);
-	reporte = empleado[2].obtenerReporteEmpleado(reporte);
-	reporte = empleado[3].obtenerReporteEmpleado(reporte);
-
-	std::cout << "El reporte de los empleados es el siguiente" << std::endl;
-	std::cout << reporte << std::endl;
+	for (int contador = 0; contador < 4; contador++) {
+		std::cout << empleado[contador].obtenerReporteEmpleado() << std::endl;
+	}
 
     return 0;
 }

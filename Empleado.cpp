@@ -15,55 +15,49 @@
 
 #include <iostream>
 #include <string>
-#include "Empleado.h"
-#include <ctime>
+#include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include "Empleado.h"
 
 Empleado::Empleado() {
-	nombre = "";
-	anno = 0;
-	salario = 0;
-}
-
-Empleado::Empleado(int ID, bool rev) {
-	identificador = 1 + (rand() % (101 - 1));
 	srand(time(NULL));
-	revisarse = rev;
+	identificador = 1 + (std::rand() %101-1);
 }
 
-double Empleado::aumentaElSalario(int *annoPtr) {
+Empleado::Empleado(const std::string &nombre, int anno, double salario):nombre(nombre),anno(anno),salario(salario) {
+	srand(time(NULL));
+	identificador = 1 + (std::rand() %101-1);
+}
+
+double Empleado::aumentaElSalario(int& annoPtr) {
 	double salarioA = 0;
-	if (anno >= MINIMA && anno < MAXIMA) {
-		return salarioA = salario + (salario*(2 / 100 * anno));
+	if (annoPtr >= MINIMA && annoPtr < MAXIMA) {
+		return salarioA = salario + (salario*(2 / 100 * annoPtr));
 	}
 	else
-		if (anno >= MAXIMA) {
-			return salarioA = salario + (salario*(5 / 100 * anno));
+		if (annoPtr >= MAXIMA) {
+			return salarioA = salario + (salario*(5 / 100 * annoPtr));
 		}
 }
 
-void Empleado::procesoDeRevision(int& pulsoPtr) {
-	int pulso = (rand() % 4);
-	srand(time(NULL));
-	if (pulso == pulsoPtr) {
-		revisarse = true;
+void Empleado::procesoDeRevision(bool *revisarsePr) {
+	if (rand() % 2 == 0) {
+		*revisarsePr = true;
+	}
+	else {
+		*revisarsePr = false;
 	}
 }
 
-std::string Empleado::obtenerReporteEmpleado(std::string reporte) {
-	std::string verdad = "No";
-	int pulso = 0;
-	procesoDeRevision(pulso);
-
-	if (pulso < 3) {
-		pulso++;
-		if (revisarse = true) {
-			verdad = "Si";
-		}
-	}
+std::string Empleado::obtenerReporteEmpleado() {
+	std::string reporte;
+	std::string verdad;
+	procesoDeRevision(&revisarse);
+	verdad = std::to_string(revisarse);
 
 	reporte += "Empleado # [" + std::to_string(identificador) + "]\n\tNombre [" + nombre + "]\n\tAños de experiencia [" + std::to_string(anno) + "]\n\tSalario Inicial [" +
-			std::to_string(salario) + "]\n\tSalario Acumulado [" + std::to_string(aumentaElSalario(&anno)) + "]\n\tNecesita revision [" + verdad + "]\n";
+			std::to_string(salario) + "]\n\tSalario Acumulado [" + std::to_string(aumentaElSalario(anno)) + "]\n\tNecesita revision [" + verdad + "]\n";
 
 	return reporte;
 }

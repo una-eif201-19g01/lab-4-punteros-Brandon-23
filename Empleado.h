@@ -19,6 +19,9 @@
 
 #include <iostream>
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 //Costantes
 static const int MINIMA = 1;
@@ -26,8 +29,8 @@ static const int MAXIMA = 3;
 
 class Empleado {
 private:
-	double aumentaElSalario(int *annoPtr);
-	void procesoDeRevision(int& pulsoPtr);
+	double aumentaElSalario(int& annoPtr);
+	void procesoDeRevision(bool *revisarsePr);
 
 protected:
 	int identificador;
@@ -39,9 +42,9 @@ protected:
 
 public:
 	Empleado();
-	Empleado(int ID,bool rev);
+	Empleado(const std::string &nombre,int anno,double salario);
 
-	std::string obtenerReporteEmpleado(std::string reporte);
+	std::string obtenerReporteEmpleado();
 
 	int getIdentificador();
 
